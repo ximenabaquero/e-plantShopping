@@ -26,7 +26,8 @@ export const CartSlice = createSlice({
     },
 
     removeItem: (state, action) => {
-      state.items = state.items.filter((item) => item.name !== action.payload);
+      const key = action.payload;
+      state.items = state.items.filter(item => item.id !== key && item.name !== key);
     },
 
     updateQuantity: (state, action) => {
@@ -46,4 +47,22 @@ export const CartSlice = createSlice({
 
 export const { addItem, removeItem, updateQuantity, clearCart } = CartSlice.actions;
 export default CartSlice.reducer;
+
+// Calculate total amount for all items in the cart
+export const calculateTotalAmount = (items) => {
+  let total = 0;
+  (items || []).forEach((item) => {
+    const qty = item.qty ?? item.quantity ?? 0;
+    const price = item.cost ? parseFloat(String(item.cost).replace(/[^0-9.-]+/g, "")) : 0;
+    total += price * qty;
+  });
+  return total;
+};
+
+// Calculate subtotal for a single cart item
+export const calculateSubtotal = (item) => {
+  const qty = item?.qty ?? item?.quantity ?? 0;
+  const price = item?.cost ? parseFloat(String(item.cost).replace(/[^0-9.-]+/g, "")) : 0;
+  return price * qty;
+};
 
