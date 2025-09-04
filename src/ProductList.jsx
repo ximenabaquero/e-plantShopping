@@ -332,13 +332,37 @@ function ProductList({ onHomeClick }) {
                 <div style={styleObjUl}>
                     <div> <a href="#" onClick={(e) => handlePlantsClick(e)} style={styleA}>Plants</a></div>
                     <div>
-                      <a href="#" onClick={(e) => handleCartClick(e)} style={styleA}>
-                        <h1 className='cart'>{/* NO emoji, solo número */}
-                          {calculateTotalQuantity()}
-                        </h1>
-                      </a>
+                  <a href="#" onClick={(e) => handleCartClick(e)} style={{ textDecoration: 'none', color: 'white' }}>
+                    <div style={{ position: 'relative', display: 'inline-block', width: 48, height: 48 }}>
+                      {/* cart icon (SVG) - visual only */}
+                      <svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="9" cy="20" r="1"></circle>
+                        <circle cx="18" cy="20" r="1"></circle>
+                        <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                      </svg>
+
+                      {/* badge with count (number inside/over the cart) */}
+                      <span style={{
+                        position: 'absolute',
+                        top: -6,
+                        right: -6,
+                        background: '#ff4d4f',
+                        color: '#fff',
+                        borderRadius: '50%',
+                        padding: '4px 7px',
+                        fontSize: 12,
+                        fontWeight: 'bold',
+                        lineHeight: 1,
+                        minWidth: 22,
+                        textAlign: 'center',
+                        boxShadow: '0 0 0 2px rgba(0,0,0,0.15)'
+                      }}>
+                        {calculateTotalQuantity()}
+                      </span>
                     </div>
+                  </a>
                 </div>
+            </div>
             </div>
 
             {!showCart ? (
